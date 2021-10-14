@@ -1,0 +1,55 @@
+name: "Deploy Allset Web Application"
+description: "Combines all of the common steps for deploying a hosted web application in the Allset ecosystem."
+
+inputs:
+  environment:
+    description: "The environment name being deployed (edge, staging, production)"
+    required: true
+  release_version: "The version string to associate with this release"
+    required: true
+
+  firebase_token:
+    description: "The CI Token used to interact with Firebase"
+    required: true
+  firebase_project:
+    description: "The name of the Firebase hosting project being deployed to"
+    required: true
+
+  node_version:
+    description: "The version of node to use for the build"
+    required: false
+    default: "16.5.0"
+
+  sentry_org:
+    description: "The Sentry organization ID to interact with"
+    required: true
+  sentry_project:
+    description: "The Sentry project ID to create a new release in"
+    required: true
+  sentry_auth_token:
+    description: "Authentication token to interact with Sentry"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    -name: Build and deploy firebase
+      uses: AllsetHQ/action-deploy-firebase-hosting@v1
+      with:
+        environment: ${{ inputs.environment }}
+        release_version: ${{ inputs.release_version }}
+        firebase_token: ${{ inputs.firebase_token }}
+        firebase_project: ${{ inputs.firebase_project }}
+        node_version: ${{ inputs.node_version }}
+
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_ORG: ${{ inputs.sentry_org }}
+        SENTRY_PROJECT: ${{ inputs.sentry_project }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry_auth_token }}
+      with:
+        environment: edge
+        version: ${{ inputs.release_version }}
+        sourcemaps: './dist'
+        ignore_missing: true
