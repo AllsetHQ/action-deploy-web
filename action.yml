@@ -5,7 +5,8 @@ inputs:
   environment:
     description: "The environment name being deployed (edge, staging, production)"
     required: true
-  release_version: "The version string to associate with this release"
+  release_version:
+    description: "The version string to associate with this release"
     required: true
 
   firebase_token:
