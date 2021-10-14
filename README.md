@@ -12,7 +12,7 @@ Adding the following to your workflow will build and deploy your web app to a gi
 ```yaml
 - uses: actions/checkout@v2
 - name: Build and deploy
-  uses: AllsetHQ/action-deploy-instrumented-web@master
+  uses: AllsetHQ/action-deploy-instrumented-web@main
   with:
     environment: edge
     release_version: ${{ github.sha }}
