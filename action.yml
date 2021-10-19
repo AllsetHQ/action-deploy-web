@@ -42,6 +42,7 @@ runs:
         firebase_token: ${{ inputs.firebase_token }}
         firebase_project: ${{ inputs.firebase_project }}
         node_version: ${{ inputs.node_version }}
+        package_token: ${{ inputs.package_token }}
 
     - name: Create Sentry release
       uses: getsentry/action-release@v1
