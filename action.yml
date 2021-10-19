@@ -35,7 +35,7 @@ runs:
   using: "composite"
   steps:
     - name: Build and deploy firebase
-      uses: AllsetHQ/action-deploy-firebase-hosting@v1
+      uses: AllsetHQ/action-deploy-firebase-hosting@main
       with:
         environment: ${{ inputs.environment }}
         release_version: ${{ inputs.release_version }}
