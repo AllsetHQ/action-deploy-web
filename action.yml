@@ -51,7 +51,8 @@ runs:
         SENTRY_PROJECT: ${{ inputs.sentry_project }}
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry_auth_token }}
       with:
-        environment: edge
+        environment: ${{ inputs.environment }}
         version: ${{ inputs.release_version }}
         sourcemaps: './dist'
         ignore_missing: true
+        ignore_empty: true
