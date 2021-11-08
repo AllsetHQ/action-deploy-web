@@ -31,6 +31,10 @@ inputs:
     description: "Authentication token to interact with Sentry"
     required: true
 
+  package_token:
+    description: "The Github packages token to use for private NPM Repos"
+    required: true
+
 runs:
   using: "composite"
   steps:
