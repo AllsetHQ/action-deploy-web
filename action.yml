@@ -19,7 +19,7 @@ inputs:
   node_version:
     description: "The version of node to use for the build"
     required: false
-    default: "16.5.0"
+    default: "16.13.0"
 
   sentry_org:
     description: "The Sentry organization ID to interact with"
