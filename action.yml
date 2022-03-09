@@ -38,11 +38,21 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Clean release version for Sentry
+      shell: bash
+      run: |
+        ref="${input_release_version////-}"
+        echo $ref
+        echo "::set-env name=release_version::$ref"
+      env:
+        input_release_version: ${{ inputs.release_version }}
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+
     - name: Build and deploy firebase
       uses: AllsetHQ/action-deploy-firebase-hosting@main
       with:
         environment: ${{ inputs.environment }}
-        release_version: ${{ inputs.release_version }}
+        release_version: ${{ env.release_version }}
         firebase_token: ${{ inputs.firebase_token }}
         firebase_project: ${{ inputs.firebase_project }}
         node_version: ${{ inputs.node_version }}
@@ -56,7 +66,7 @@ runs:
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry_auth_token }}
       with:
         environment: ${{ inputs.environment }}
-        version: ${{ inputs.release_version }}
+        version: ${{ env.release_version }}
         sourcemaps: './dist'
         ignore_missing: true
         ignore_empty: true
