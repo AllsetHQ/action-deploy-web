@@ -9,9 +9,10 @@ inputs:
     description: "The version string to associate with this release"
     required: true
 
-  firebase_token:
-    description: "The CI Token used to interact with Firebase"
+  service_account_key:
+    description: "GCP Service Account credentials used to authenticate for deploys"
     required: true
+
   firebase_project:
     description: "The name of the Firebase hosting project being deployed to"
     required: true
@@ -48,8 +49,8 @@ runs:
       with:
         environment: ${{ inputs.environment }}
         release_version: ${{ env.release_version }}
-        firebase_token: ${{ inputs.firebase_token }}
         firebase_project: ${{ inputs.firebase_project }}
+        service_account_key: ${{ inputs.service_account_key }}
         package_token: ${{ inputs.package_token }}
 
     - name: Create Sentry release
