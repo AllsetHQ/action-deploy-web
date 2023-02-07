@@ -16,11 +16,6 @@ inputs:
     description: "The name of the Firebase hosting project being deployed to"
     required: true
 
-  node_version:
-    description: "The version of node to use for the build"
-    required: false
-    default: "16.13.0"
-
   sentry_org:
     description: "The Sentry organization ID to interact with"
     required: true
@@ -55,7 +50,6 @@ runs:
         release_version: ${{ env.release_version }}
         firebase_token: ${{ inputs.firebase_token }}
         firebase_project: ${{ inputs.firebase_project }}
-        node_version: ${{ inputs.node_version }}
         package_token: ${{ inputs.package_token }}
 
     - name: Create Sentry release
